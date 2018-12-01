@@ -22,7 +22,7 @@ const createElement = (prefix, component, file, async) => {
   const { camelName, kebabName } = exports.fileToComponentName(prefix, component)
 
   return async
-    ? `window.customElements.define('${kebabName}', wrap(Vue, () => import('~root/${file}?shadow')))\n`
+    ? `window.customElements.define('${kebabName}', wrap(Vue, function() { return import('~root/${file}?shadow') }))\n`
     : `import ${camelName} from '~root/${file}?shadow'\n` +
         `window.customElements.define('${kebabName}', wrap(Vue, ${camelName}))\n`
 }
